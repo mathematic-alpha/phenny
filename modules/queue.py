@@ -21,6 +21,8 @@ commands = '.queue display, .queue new, .queue delete, .queue <name> add, .queue
 commands = '.queue display, .queue new, .queue delete, .queue <name> add, .queue <name> swap, .queue <name> remove'
 >>>>>>> 6d4cf2a... added delete command .queue
 
+commands = '.queue display, .queue new, .queue <name> add, .queue <name> swap, .queue <name> remove'
+
 def filename(phenny):
     name = phenny.nick + '-' + phenny.config.host + '.queue.db'
     return os.path.join(os.path.expanduser('~/.phenny'), name)
@@ -54,6 +56,7 @@ def search_queue(queue, query):
             break
     return index
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def get_queue(queue_data, queue_name, nick):
     lower_names = {k.lower(): k for k in queue_data.keys()}
@@ -95,6 +98,11 @@ def search_queue_list(queue_data, queue_name, nick):
 def print_queue(queue_name, queue):
     return '[{}]- {}'.format(
         queue_name, ', '.join(queue['queue']) if queue['queue'] else '<empty>')
+=======
+def print_queue(queue_name, queue):
+    return '[{}] (by {}): {}'.format(
+        queue_name, queue['owner'], ', '.join(queue['queue']) if queue['queue'] else '<empty>')
+>>>>>>> 050e15c... better .queue formatting, dict writing bug
 
 def queue(phenny, raw):
     """.queue- queue management."""
@@ -126,9 +134,13 @@ def queue(phenny, raw):
             queue_name = raw.group(2)
             if queue_name in phenny.queue_data:
                 queue = phenny.queue_data[queue_name]
+<<<<<<< HEAD
 >>>>>>> 3f1be4f... fixed lowercasing in .queue
                 phenny.reply(print_queue(queue_name, queue))
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
+=======
+                phenny.reply(print_queue(queue_name, queue))
+>>>>>>> 050e15c... better .queue formatting, dict writing bug
             else:
                 #there was no queue name given, display all of their names
                 if phenny.queue_data:
