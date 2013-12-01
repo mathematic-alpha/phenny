@@ -134,7 +134,11 @@ def queue(phenny, raw):
                         write_dict(filename(phenny), phenny.queue_data)
                         phenny.reply('Empty queue {} created.'.format(queue_name))
                 else:
+<<<<<<< HEAD
                     phenny.reply('You already have a queue with that name! Pick a new name or delete the old one.')
+=======
+                    phenny.reply('A queue with that name already exists. Pick a new name.')
+>>>>>>> 09b8613... fixed duplicate name .queue
             else:
                 phenny.reply('Syntax: .queue new <name> <item1>, <item2> ...')
 
