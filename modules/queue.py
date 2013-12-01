@@ -97,6 +97,7 @@ def queue(phenny, raw):
     if raw.group(1):
         command = raw.group(1)
         if command.lower() == 'display':
+<<<<<<< HEAD
             search = raw.group(2)
 <<<<<<< HEAD
             if search:
@@ -112,6 +113,11 @@ def queue(phenny, raw):
 =======
             queue_name, queue = search_queue_list(phenny.queue_data, search, raw.nick)
             if queue_name:
+=======
+            queue_name = raw.group(2)
+            if queue_name in phenny.queue_data:
+                queue = phenny.queue_data[queue_name]
+>>>>>>> 3f1be4f... fixed lowercasing in .queue
                 phenny.reply(print_queue(queue_name, queue))
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
             else:
