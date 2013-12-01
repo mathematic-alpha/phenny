@@ -12,10 +12,14 @@ import more
 >>>>>>> 2674acc... Add queue move, replace, random
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 commands = '.queue display, .queue new, .queue delete, .queue rename, .queue <name> add, .queue <name> swap, .queue <name> remove, .queue <name> pop'
 =======
 commands = '.queue display, .queue new, .queue delete, .queue <name> add, .queue <name> swap, .queue <name> remove, .queue <name> pop'
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
+=======
+commands = '.queue display, .queue new, .queue delete, .queue <name> add, .queue <name> swap, .queue <name> remove'
+>>>>>>> 6d4cf2a... added delete command .queue
 
 def filename(phenny):
     name = phenny.nick + '-' + phenny.config.host + '.queue.db'
@@ -145,6 +149,7 @@ def queue(phenny, raw):
         elif command.lower() == 'delete':
             if raw.group(2):
 <<<<<<< HEAD
+<<<<<<< HEAD
                 queue_name, queue = get_queue(phenny.queue_data, raw.group(2), raw.nick)
                 if type(queue_name) is str:
                     if raw.nick == queue['owner'] or raw.admin:
@@ -170,12 +175,23 @@ def queue(phenny, raw):
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
                     write_dict(filename(phenny), phenny.queue_data)
                     phenny.reply(print_queue(raw.group(3), queue))
+=======
+                queue_name = raw.group(2)
+                if raw.nick == phenny.queue_data[queue_name]['owner'] or raw.admin:
+                    phenny.queue_data.pop(queue_name)
+                    write_dict(filename(phenny), phenny.queue_data)
+                    phenny.reply('Queue {} deleted.'.format(queue_name))
+>>>>>>> 6d4cf2a... added delete command .queue
                 else:
                     phenny.reply('You aren\'t authorized to do that!')
             else:
                 phenny.reply('Syntax: .queue delete <name>')
 
+<<<<<<< HEAD
         elif search_queue_list(phenny.queue_data, raw.group(1), raw.nick)[0]:
+=======
+        elif command in phenny.queue_data:
+>>>>>>> 6d4cf2a... added delete command .queue
             #queue-specific commands
 <<<<<<< HEAD
             queue_name, queue = get_queue(phenny.queue_data, raw.group(1), raw.nick)
