@@ -278,6 +278,7 @@ def queue(phenny, raw):
                         else:
                             phenny.reply('Syntax: .queue <name> remove <item>')
                     elif command == 'pop':
+<<<<<<< HEAD
                         try:
                             queue['queue'].pop(0)
                             write_dict(filename(phenny), phenny.queue_data)
@@ -309,6 +310,11 @@ def queue(phenny, raw):
                     phenny.reply('%s is the lucky one.' % repr(random.choice(queue['queue'])))
 =======
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
+=======
+                        queue['queue'].pop(0)
+                        write_dict(filename(phenny), phenny.queue_data)
+                        phenny.reply(print_queue(queue_name, queue))
+>>>>>>> e2db73b... added pop command .queue
                 else:
                     phenny.reply('You aren\'t the owner of this queue!')
             else:
