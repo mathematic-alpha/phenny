@@ -45,7 +45,11 @@ def setup(phenny):
 def search_queue(queue, query):
     index = None
     for i in range(len(queue)):
+<<<<<<< HEAD
         if queue[i].lower().startswith(query.lower()):
+=======
+        if query.lower() in queue[i].lower():
+>>>>>>> 98d0772... better parsing by lowercasing .queue
             index = int(i)
             break
     return index
@@ -95,6 +99,7 @@ def print_queue(queue_name, queue):
 def queue(phenny, raw):
     """.queue- queue management."""
     if raw.group(1):
+<<<<<<< HEAD
         command = raw.group(1)
         if command.lower() == 'display':
 <<<<<<< HEAD
@@ -114,6 +119,10 @@ def queue(phenny, raw):
             queue_name, queue = search_queue_list(phenny.queue_data, search, raw.nick)
             if queue_name:
 =======
+=======
+        command = raw.group(1).lower()
+        if command == 'display':
+>>>>>>> 98d0772... better parsing by lowercasing .queue
             queue_name = raw.group(2)
             if queue_name in phenny.queue_data:
                 queue = phenny.queue_data[queue_name]
@@ -206,7 +215,11 @@ def queue(phenny, raw):
 >>>>>>> 0a2c8bc... added ability to have duplicate queues
             if raw.group(2):
                 command = raw.group(2).lower()
+<<<<<<< HEAD
                 if queue['owner'] == raw.nick or raw.admin:
+=======
+                if queue['owner'] == raw.nick:
+>>>>>>> 98d0772... better parsing by lowercasing .queue
                     if command == 'add':
                         if raw.group(3):
                             new_queue = raw.group(3).split(',')
@@ -236,6 +249,7 @@ def queue(phenny, raw):
                             phenny.reply(print_queue(queue_name, queue))
                         else:
                             phenny.reply('Syntax: .queue <name> swap <index/item1>, <index/item2>')
+<<<<<<< HEAD
 <<<<<<< HEAD
                     elif command == 'move' or command == 'mv':
 =======
@@ -284,6 +298,8 @@ def queue(phenny, raw):
 <<<<<<< HEAD
                     elif command == 'remove' or command == 'delete':
 =======
+=======
+>>>>>>> 98d0772... better parsing by lowercasing .queue
                     elif command == 'remove':
                         if raw.group(3):
                             item = raw.group(3)
