@@ -11,7 +11,11 @@ import more
 =======
 >>>>>>> 2674acc... Add queue move, replace, random
 
+<<<<<<< HEAD
 commands = '.queue display, .queue new, .queue delete, .queue rename, .queue <name> add, .queue <name> swap, .queue <name> remove, .queue <name> pop'
+=======
+commands = '.queue display, .queue new, .queue delete, .queue <name> add, .queue <name> swap, .queue <name> remove, .queue <name> pop'
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
 
 def filename(phenny):
     name = phenny.nick + '-' + phenny.config.host + '.queue.db'
@@ -42,6 +46,7 @@ def search_queue(queue, query):
             break
     return index
 
+<<<<<<< HEAD
 def get_queue(queue_data, queue_name, nick):
     lower_names = {k.lower(): k for k in queue_data.keys()}
     if queue_name.lower() in lower_names:
@@ -65,6 +70,19 @@ def disambiguate_name(queue_data, queue_name):
         if queue_name.lower() in i.lower():
             matches.append(i)
     return matches[0] if len(matches) == 1 else matches
+=======
+def search_queue_list(queue_data, queue_name, nick):
+    if queue_name in queue_data:
+        return queue_name, queue_data[queue_name]
+    elif nick + ':' + queue_name in queue_data:
+        n = nick + ':' + queue_name
+        return n, queue_data[n]
+    else:
+        for i in queue_data:
+            if queue_name == i.split(':')[1]:
+                return i, queue_data[i]
+    return None, None 
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
 
 def print_queue(queue_name, queue):
     return '[{}]- {}'.format(
@@ -76,6 +94,7 @@ def queue(phenny, raw):
         command = raw.group(1)
         if command.lower() == 'display':
             search = raw.group(2)
+<<<<<<< HEAD
             if search:
                 queue_names = disambiguate_name(phenny.queue_data, search)
                 if type(queue_names) is str:
@@ -86,6 +105,11 @@ def queue(phenny, raw):
                     phenny.reply('Did you mean: ' + ', '.join(queue_names) + '?')
                 else:
                     phenny.reply('No queues found.')
+=======
+            queue_name, queue = search_queue_list(phenny.queue_data, search, raw.nick)
+            if queue_name:
+                phenny.reply(print_queue(queue_name, queue))
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
             else:
                 #there was no queue name given, display all of their names
                 if phenny.queue_data:
@@ -116,6 +140,7 @@ def queue(phenny, raw):
 
         elif command.lower() == 'delete':
             if raw.group(2):
+<<<<<<< HEAD
                 queue_name, queue = get_queue(phenny.queue_data, raw.group(2), raw.nick)
                 if type(queue_name) is str:
                     if raw.nick == queue['owner'] or raw.admin:
@@ -134,6 +159,11 @@ def queue(phenny, raw):
                 queue_name, queue = search_queue_list(phenny.queue_data, raw.group(2), raw.nick)
                 if raw.nick == queue['owner'] or raw.admin:
                     phenny.queue_data[queue['owner'] + ':' + raw.group(3)] = phenny.queue_data.pop(queue_name)
+=======
+                queue_name, queue = search_queue_list(phenny.queue_data, raw.group(2), raw.nick)
+                if raw.nick == queue['owner'] or raw.admin:
+                    phenny.queue_data.pop(queue_name)
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
                     write_dict(filename(phenny), phenny.queue_data)
                     phenny.reply(print_queue(raw.group(3), queue))
                 else:
@@ -143,7 +173,11 @@ def queue(phenny, raw):
 
         elif search_queue_list(phenny.queue_data, raw.group(1), raw.nick)[0]:
             #queue-specific commands
+<<<<<<< HEAD
             queue_name, queue = get_queue(phenny.queue_data, raw.group(1), raw.nick)
+=======
+            queue_name, queue = search_queue_list(phenny.queue_data, raw.group(1), raw.nick)
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
             if raw.group(2):
                 command = raw.group(2).lower()
                 if queue['owner'] == raw.nick or raw.admin:
@@ -246,6 +280,7 @@ def queue(phenny, raw):
                             phenny.reply(print_queue(queue_name, queue))
                         except IndexError:
                             phenny.reply('That queue is already empty.')
+<<<<<<< HEAD
                     elif command == 'random':
                         phenny.reply('%s is the lucky one.' % repr(random.choice(queue['queue'])))
                     elif command == 'reassign':
@@ -268,6 +303,8 @@ def queue(phenny, raw):
                             phenny.reply('Syntax: .queue <name> rename <new_name>')
                 elif command == 'random':
                     phenny.reply('%s is the lucky one.' % repr(random.choice(queue['queue'])))
+=======
+>>>>>>> 0a2c8bc... added ability to have duplicate queues
                 else:
                     phenny.reply('You aren\'t the owner of this queue!')
             else:
