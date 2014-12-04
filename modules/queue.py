@@ -11,7 +11,7 @@ import more
 =======
 >>>>>>> 2674acc... Add queue move, replace, random
 
-commands = '.queue display <name>?; .queue new <name> <items>; .queue delete <name>; .queue <name> add <items>; .queue <name> swap <item1/index1>, <item2/index2>; .queue <name> remove <item>; .queue <name> pop; .queue <name> reassign <nick>; .queue <name> rename <new_name>'
+commands = '.queue display, .queue new, .queue delete, .queue rename, .queue <name> add, .queue <name> swap, .queue <name> remove, .queue <name> pop'
 
 def filename(phenny):
     name = phenny.nick + '-' + phenny.config.host + '.queue.db'
@@ -129,7 +129,19 @@ def queue(phenny, raw):
             else:
                 phenny.reply('Syntax: .queue delete <name>')
 
-        elif get_queue(phenny.queue_data, raw.group(1), raw.nick)[0]:
+        elif command.lower() == 'rename':
+            if raw.group(3):
+                queue_name, queue = search_queue_list(phenny.queue_data, raw.group(2), raw.nick)
+                if raw.nick == queue['owner'] or raw.admin:
+                    phenny.queue_data[queue['owner'] + ':' + raw.group(3)] = phenny.queue_data.pop(queue_name)
+                    write_dict(filename(phenny), phenny.queue_data)
+                    phenny.reply(print_queue(raw.group(3), queue))
+                else:
+                    phenny.reply('You aren\'t authorized to do that!')
+            else:
+                phenny.reply('Syntax: .queue rename <old_name> <new_name>')
+
+        elif search_queue_list(phenny.queue_data, raw.group(1), raw.nick)[0]:
             #queue-specific commands
             queue_name, queue = get_queue(phenny.queue_data, raw.group(1), raw.nick)
             if raw.group(2):
