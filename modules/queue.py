@@ -84,6 +84,7 @@ def queue(phenny, raw):
                 elif len(queue_names) > 0:
                     queue_exact = list(queue_names)
                     for q in queue_names:
+                        #the exact name is same for more users
                         if q.split(':')[0] == raw.nick and q[len(raw.nick)+1:] == search:
                             #current user owns queue with exact name
                             phenny.reply(print_queue(q, phenny.queue_data[q]))
