@@ -11,7 +11,7 @@ import more
 =======
 >>>>>>> 2674acc... Add queue move, replace, random
 
-commands = '.queue display <name>?; .queue new <name> <items>; .queue delete <name>; .queue <name> add <items>; .queue <name> swap <item/index1>, <item/index2>; .queue <name> move <source_item/index>, <target_item/index>; .queue <name> replace <item/index>, <new_item>; .queue <name> remove <item>; .queue <name> pop; .queue <name> random; .queue <name> reassign <nick>; .queue <name> rename <new_name>'
+commands = '.queue display <name>?; .queue new <name> <items>; .queue delete <name>; .queue <name> add <items>; .queue <name> swap <item1/index1>, <item2/index2>; .queue <name> remove <item>; .queue <name> pop; .queue <name> reassign <nick>; .queue <name> rename <new_name>'
 
 def filename(phenny):
     name = phenny.nick + '-' + phenny.config.host + '.queue.db'
