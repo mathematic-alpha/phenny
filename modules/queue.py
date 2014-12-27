@@ -6,7 +6,10 @@ author: mattr555
 import os
 import pickle
 import random
+<<<<<<< HEAD
 import more
+=======
+>>>>>>> 2674acc... Add queue move, replace, random
 
 commands = '.queue display <name>?; .queue new <name> <items>; .queue delete <name>; .queue <name> add <items>; .queue <name> swap <item/index1>, <item/index2>; .queue <name> move <source_item/index>, <target_item/index>; .queue <name> replace <item/index>, <new_item>; .queue <name> remove <item>; .queue <name> pop; .queue <name> random; .queue <name> reassign <nick>; .queue <name> rename <new_name>'
 
@@ -177,7 +180,11 @@ def queue(phenny, raw):
                             phenny.reply(print_queue(queue_name, queue))
                         else:
                             phenny.reply('Syntax: .queue <name> swap <index/item1>, <index/item2>')
+<<<<<<< HEAD
                     elif command == 'move' or command == 'mv':
+=======
+                    elif command == 'move':
+>>>>>>> 2674acc... Add queue move, replace, random
                         if raw.group(3) and ',' in raw.group(3):
                             indices = raw.group(3).split(',')
                             try:
@@ -192,8 +199,12 @@ def queue(phenny, raw):
                                 if id2 is None:
                                     phenny.reply('{} not found in {}'.format(indices[1].strip(), queue_name))
                                     return
+<<<<<<< HEAD
                             #queue['queue'][id2 + (-1 if id1 < id2 else 0)] = queue['queue'].pop(id1)
                             queue['queue'].insert(id2, queue['queue'].pop(id1))
+=======
+                            queue['queue'][id2 + (-1 if id1 < id2 else 0)] = queue['queue'].pop(id1)
+>>>>>>> 2674acc... Add queue move, replace, random
                             write_dict(filename(phenny), phenny.queue_data)
                             phenny.reply(print_queue(queue_name, queue))
                         else:
@@ -214,7 +225,11 @@ def queue(phenny, raw):
                             phenny.reply(print_queue(queue_name, queue))
                         else:
                             phenny.reply('Syntax: .queue <name> replace <index/item>, <new_item>')
+<<<<<<< HEAD
                     elif command == 'remove' or command == 'delete':
+=======
+                    elif command == 'remove':
+>>>>>>> 2674acc... Add queue move, replace, random
                         if raw.group(3):
                             item = raw.group(3)
                             if item in queue['queue']:
@@ -236,6 +251,8 @@ def queue(phenny, raw):
                             phenny.reply(print_queue(queue_name, queue))
                         except IndexError:
                             phenny.reply('That queue is already empty.')
+                    elif command == 'random':
+                        phenny.reply('%s is the lucky one.' % repr(random.choice(queue['queue'])))
                     elif command == 'reassign':
                         if raw.group(3):
                             new_owner = raw.group(3)
