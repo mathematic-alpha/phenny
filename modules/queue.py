@@ -130,7 +130,7 @@ def queue(phenny, raw):
             else:
                 phenny.reply('Syntax: .queue new <name> <item1>, <item2> ...')
 
-        elif command.lower() in ['delete', 'remove', 'del', 'rm']:
+        elif command.lower() == 'delete':
             if raw.group(2):
                 queue_name, queue = get_queue(phenny.queue_data, raw.group(2), raw.nick)
                 if type(queue_name) is str:
@@ -229,7 +229,6 @@ def queue(phenny, raw):
                     elif command == 'remove' or command == 'delete':
 =======
                     elif command == 'remove':
->>>>>>> 2674acc... Add queue move, replace, random
                         if raw.group(3):
                             item = raw.group(3)
                             if item in queue['queue']:
